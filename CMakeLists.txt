@@ -12,4 +12,3 @@ add_subdirectory(core)
 add_subdirectory(test)
 
 target_link_libraries(retrofunk retrofunk_core)
-target_compile_features(retrofunk PRIVATE cxx_range_for)
