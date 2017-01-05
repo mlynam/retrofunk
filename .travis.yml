@@ -1,30 +1,22 @@
 addons:
-    apt:
-        sources:
-            - llvm-toolchain-precise
-            - ubuntu-toolchain-r-test
-        packages:
-            - clang-3.7
-            - g++-5
-            - gcc-5
-before_install:
- - sudo apt-get -qq update
- - sudo apt-get install -y libgtest-dev
- - sudo wget https://github.com/google/googletest/archive/release-1.8.0.tar.gz
- - sudo tar xf release-1.8.0.tar.gz
- - cd googletest-release-1.8.0/googletest
- - sudo cmake -DBUILD_SHARED_LIBS=ON .
- - sudo make
- - sudo cp -a include/gtest /usr/include
- - sudo cp -a libgtest_main.so libgtest.so /usr/lib/
- - cd "${TRAVIS_BUILD_DIR}"
+  apt:
+    sources:
+      - llvm-toolchain-precise
+      - ubuntu-toolchain-r-test
+    packages:
+      - clang-3.7
+      - g++-5
+      - gcc-5
 install:
-    - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
-    - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+  - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
 language: cpp
 compiler:
   - gcc
 script:
+  - cd test/lib
+  - git clone https://github.com/google/googletest
+  - cd ../..
   - mkdir build
   - cd build
   - cmake .. && make
