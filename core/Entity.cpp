@@ -4,6 +4,13 @@
 
 #include "Entity.h"
 
+Entity::Entity(Entity && other) : serializer_(other.serializer_) {
+    components_ = std::move(other.components_);
+
+    other.components_.clear();
+    other.serializer_ = nullptr;
+}
+
 Entity::Entity(Serializer* ser) : serializer_(ser) {
 
 }

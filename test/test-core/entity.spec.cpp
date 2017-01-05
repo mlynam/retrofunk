@@ -24,6 +24,19 @@ protected:
 };
 
 
+TEST_F(EntityTests, MoveEntity) {
+    auto entity = TestEntity(this->serializer);
+    entity.Initialize();
+
+    auto component = entity.GetComponent<TestComponent>();
+    auto moved = std::move(entity);
+    auto moved_component = moved.GetComponent<TestComponent>();
+
+    ASSERT_EQ(entity.GetComponents().size(), 0);
+    ASSERT_EQ(moved.GetComponents().size(), 1);
+    ASSERT_EQ(component, moved_component);
+}
+
 TEST_F(EntityTests, serialize_entity) {
     auto entity = TestEntity(this->serializer);
     entity.Initialize();

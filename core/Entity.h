@@ -20,6 +20,9 @@ public:
     virtual ~Entity();
     virtual void Serialize();
 
+    Entity(Entity&) = delete;
+    Entity(Entity&&);
+
     std::vector<Component*> GetComponents();
 
     /// Adds a new component to the entity.
